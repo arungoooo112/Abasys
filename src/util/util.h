@@ -8,9 +8,9 @@
 #ifndef TINYNURBS_UTIL
 #define TINYNURBS_UTIL
 
-#include "util/array2.h"
-#include <glm/glm.hpp>
 #include <vector>
+#include "array2.h"
+#include "glm/glm.hpp"
 
 namespace tinynurbs
 {

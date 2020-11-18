@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 // 坐标体系主要依赖于glm库，并对其进行了进一步的封装，提供公共的接口。
 // 因此你也可以简单的自定义自己的坐标类，
 // 需要特别注意的是，自定义的Coord 类，应该能够进行简单的算术运算，如加减，
@@ -16,19 +10,21 @@
 // cout << v.z << v[2]; //输出坐标x
 
 
-#ifndef TINYIGA_COORD_H
-#define TINYIGA_COORD_H
+#ifndef ABASYS_COORD_H
+#define ABASYS_COORD_H
 
 #include "glm/glm.hpp"
-
 
 template<typename T>
 using vec3 = glm::vec<3, T>;
 
+template<typename T>
+using hvec3 = glm::vec<4, T>;
 
+using vec3f = vec3<float>;
 using vec3d = vec3<double>;
+using hvec3f = hvec3<float>;
 using hvec3d = hvec3<double>;
-
 
 template<typename T>
 vec3<T> rotateZ(const vec3<T>& a, T alpha) {
@@ -39,4 +35,4 @@ vec3<T> rotateZ(const vec3<T>& a, T alpha) {
     return vec3<T>(x, y, a.z);
 }
 
-#endif //TINYIGA_COORD_H
+#endif //ABASYS_COORD_H

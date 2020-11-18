@@ -8,8 +8,8 @@
  * the LICENSE file.
  */
 
-#ifndef TINYIGA_ARRAY2_H
-#define TINYIGA_ARRAY2_H
+#ifndef ABASYS_ARRAY2_H
+#define ABASYS_ARRAY2_H
 
 #include <cassert>
 #include <stdexcept>
@@ -99,6 +99,5 @@ template <typename T> class array2
     std::vector<T> data_;
 };
 
-//} // namespace tinynurbs
 
-#endif // TINYIGA_ARRAY2_H
+#endif // ABASYS_ARRAY2_H
