@@ -7,6 +7,7 @@ using namespace abab;
 enum {X,Y};
 bool SheetCircHole()
 {
+    cout << "构造曲线模型 Surf: " << endl;
     //---------CAD model----------------------------------------
     double a = 1; //圆弧半径
     double L = 5; //四边形边长
@@ -21,19 +22,21 @@ bool SheetCircHole()
 
     auto Surf = createSurface({ curv1, curv2, curv3 });
 
-    cout << Surf << endl << endl << "-----------------------------" << endl;
+    cout << Surf << endl << endl;
 
-    cout << isValidSurface(Surf) << "  valid?" << endl;
+    cout << "Is Surf valid?  " << isValidSurface(Surf) << endl;
 
-    Surf.HRefine(100, 100);
-    cout << Surf << endl << endl << "-----------------------------" << endl;
+    cout << "对Surf进行加密，（20，20）\n";
+    Surf.HRefine(20, 20);
+    cout << "加密后的Surf：\n";
+    cout << Surf << endl << endl;
 
     double E = 1e5;
     double nu = 0.3;
 
     cout << "calculate K:\n";
-    SparseMatrix<double> K = assemblySparse(Surf, E, nu, PlaneStress);
-
+    MatrixX<double> K = assemblyMatrix(Surf, E, nu, PlaneStress);
+    
     cout << K;
     Spsheetcircholeexactstress<double> S(a, 1.0);
 
@@ -63,21 +66,27 @@ bool SheetCircHole()
     vector<int> knowns;
     for (const auto& ui : uContainor)
         knowns.insert(knowns.end(), ui.second.begin(), ui.second.end());
+    //abab::solveByLarge(K, U, F, knowns);
     abab::solve(K, U, F, knowns);
 
+    cout << "\npost process:\n"<< endl << endl;
+    fstream out("post.csv");
     double u = 1.0, v = 0.0;
-    double x = 0.0, y = a;
-    cout << "\ncalcu stress on (1.0, 0.0):\n";
-    cout << "\nexact stress:\n";
-    cout << S.xx(x, y) << endl;
-    cout << S.yy(x, y) << endl;
-    cout << S.xy(x, y) << endl;
+    int n = 180;
+    for (int i = 0; i <= n; i++)
+    {
+        v = 1.0 / n * i;
+        auto crd = surfacePoint(Surf, u, v);
+        double x = crd[0], y = crd[1];
 
-    cout << "\ncalcu stress:\n";
-    Vector3d strain = getStrainVals(Surf, u, v, U);
-    Matrix3d D = getElastMatrix(E, nu, PlaneStress);
-    Vector3d stress = D * strain;
-    cout << stress;
+        double t = atan(-x / y) / PI * 180 + 90.0;
+
+        Vector3d strain = getStrainVals(Surf, u, v, U);
+        Matrix3d D = getElastMatrix(E, nu, PlaneStress);
+        Vector3d stress = D * strain;
+        out << t << ", " << S.xx(x, y) << ", " << -stress[0] << endl;
+        printf("%3.2f : %f  %f\n", t, S.xx(x, y), -stress[0]);
+    }
 
     return true;
 }
