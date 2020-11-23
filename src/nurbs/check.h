@@ -12,7 +12,7 @@
 #include <vector>
 #include "curve.h"
 #include "surface.h"
-#include "bases/check.h"
+#include "detail/check.h"
 
 namespace tinynurbs
 {
