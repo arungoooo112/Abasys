@@ -16,8 +16,6 @@
 #include <vector>
 #include <initializer_list>
 
-// namespace tinynurbs
-// {
 
 /**
  * A simple class for representing 2D runtime arrays.
