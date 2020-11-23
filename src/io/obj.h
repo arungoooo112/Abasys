@@ -8,8 +8,8 @@
 #ifndef TINYNURBS_OBJ_H
 #define TINYNURBS_OBJ_H
 
-#include "core/curve.h"
-#include "core/surface.h"
+#include "nurbs/curve.h"
+#include "nurbs/surface.h"
 #include "util/array2.h"
 #include "util/util.h"
 #include "glm/glm.hpp"

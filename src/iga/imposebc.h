@@ -4,9 +4,9 @@
 #include <vector>
 #include <Eigen/Dense>
 
-#include "core/surface.h"
-#include "core/curve.h"
-#include "core/boundary.h"
+#include "nurbs/surface.h"
+#include "nurbs/curve.h"
+#include "nurbs/boundary.h"
 #include "util/coord.h"
 #include "util/array2.h"
 #include "iga/assembly.h"

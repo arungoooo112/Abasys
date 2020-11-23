@@ -7,8 +7,8 @@
 
 #include "util/coord.h" 
 #include "util/array2.h"
-#include "core/basis.h"
-#include "core/surface.h"
+#include "nurbs/basis.h"
+#include "nurbs/surface.h"
 
 #include "guass.h"
 #include "index.h"

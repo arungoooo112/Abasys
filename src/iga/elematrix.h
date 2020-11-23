@@ -3,8 +3,8 @@
 
 #include <Eigen/Dense>
 
-#include "core/surface.h"
-#include "core/basis.h"
+#include "nurbs/surface.h"
+#include "nurbs/basis.h"
 #include "util/util.h"
 #include "util/coord.h" 
 #include "util/array2.h"

@@ -9,9 +9,9 @@
 #define TINYNURBS_MODIFY_H
 
 #include <glm/glm.hpp>
-#include <core/check.h>
-#include <core/curve.h>
-#include <core/surface.h>
+#include "nurbs/check.h>
+#include "nurbs/curve.h>
+#include "nurbs/surface.h>
 #include <util/util.h>
 #include <tuple>
 #include <vector>

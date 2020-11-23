@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
-#include "core/surface.h"
-#include "core/boundary.h"
+#include "nurbs/surface.h"
+#include "nurbs/boundary.h"
 #include "imposebc.h"
 #include "assembly.h"
 #include "elematrix.h"
