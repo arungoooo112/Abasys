@@ -9,7 +9,7 @@
 #define TINYNURBS_BASIS_H
 
 #include <vector>
-#include "util/array2.h"
+#include "./array2.h"
 #include "util/util.h"
 
 namespace tinynurbs
@@ -28,7 +28,7 @@ template <typename T> int findSpan(unsigned int degree, const std::vector<T> &kn
     int n = static_cast<int>(knots.size()) - degree - 2;
     /*
         // For u that is equal to last knot value
-        if (util::close(u, knots[n + 1])) {
+        if (close(u, knots[n + 1])) {
             return n;
         }
     */

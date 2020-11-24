@@ -7,10 +7,10 @@
 #include "nurbs/surface.h"
 #include "nurbs/curve.h"
 #include "nurbs/boundary.h"
-#include "util/coord.h"
-#include "util/array2.h"
-#include "iga/assembly.h"
-#include "iga/guass.h"
+#include "./coord.h"
+#include "./array2.h"
+#include "assembly.h"
+#include "guass.h"
 
 using std::vector;
 using Eigen::VectorX;

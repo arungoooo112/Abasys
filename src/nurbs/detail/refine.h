@@ -1,14 +1,13 @@
 
-#ifndef TINYNURBS_REFINE_H
-#define TINYNURBS_REFINE_H
+#ifndef FUNS_REFINE_H
+#define FUNS_REFINE_H
 
-
-#include "basis.h"
 #include <vector>
-#include "util/array2.h"
-#include "glm/glm.hpp"
+#include "basis.h"
+#include "../array2.h"
+#include "../coord.h"
 
-namespace tinynurbs
+namespace funs
 {
     using std::vector;
 
@@ -321,6 +320,6 @@ vector<int> getinsertKnotVect(vector<T>& U, int n) {
 }
 
 
-} //namespace tinynurbs
+} //namespace funs
 
 #endif

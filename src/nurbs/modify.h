@@ -8,13 +8,14 @@
 #ifndef TINYNURBS_MODIFY_H
 #define TINYNURBS_MODIFY_H
 
-#include <glm/glm.hpp>
-#include "nurbs/check.h>
-#include "nurbs/curve.h>
-#include "nurbs/surface.h>
-#include <util/util.h>
 #include <tuple>
 #include <vector>
+#include "./coord.h"
+#include "check.h"
+#include "curve.h"
+#include "surface.h"
+#include "util/util.h"
+
 
 namespace tinynurbs
 {

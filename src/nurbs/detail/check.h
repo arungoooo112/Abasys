@@ -6,16 +6,17 @@
  * the LICENSE file.
  */
 
-#ifndef BASES_CHECK_H
-#define BASES_CHECK_H
+#ifndef FUNS_CHECK_H
+#define FUNS_CHECK_H
 
 #include <algorithm> // issort 
 #include <vector>
-#include "util/coord.h"
-#include "util/array2.h"
+
+#include "../coord.h"
+#include "../array2.h"
 
 
-namespace tinynurbs
+namespace funs
 {
 
 /////////////////////////////////////////////////////////////////////

@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <vector>
-#include "../util/array2.h"
-#include "../util/coord.h"
-#include "../core/curve.h"
-#include "../core/surface.h"
+#include "./array2.h"
+#include "./coord.h"
+#include "nurbs/curve.h"
+#include "nurbs/surface.h"
 
 
 namespace tinynurbs {

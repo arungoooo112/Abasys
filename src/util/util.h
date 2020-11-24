@@ -9,8 +9,8 @@
 #define TINYNURBS_UTIL
 
 #include <vector>
-#include "array2.h"
-#include "glm/glm.hpp"
+#include "./array2.h"
+#include "./coord.h"
 
 namespace tinynurbs
 {

@@ -9,13 +9,13 @@
 #ifndef TINYNURBS_CURVE_H
 #define TINYNURBS_CURVE_H
 
-#include "glm/glm.hpp"
 #include <exception>
 #include <stdexcept>
 #include <vector>
 
-#include "util/util.h"
+#include "./coord.h"
 #include "refine.h"
+#include "util/util.h"
 
 namespace tinynurbs
 {
@@ -31,12 +31,12 @@ template <typename T> struct Curve
 {
     unsigned int degree;
     std::vector<T> knots;
-    std::vector<glm::vec<3, T>> control_points;
+    std::vector<vec3<T>> control_points;
 
     Curve() = default;
     Curve(const RationalCurve<T> &crv) : Curve(crv.degree, crv.knots, crv.control_points) {}
     Curve(unsigned int degree, const std::vector<T> &knots,
-          const std::vector<glm::vec<3, T>> &control_points)
+          const std::vector<vec3<T>> &control_points)
         : degree(degree), knots(knots), control_points(control_points)
     {
     }
@@ -75,7 +75,7 @@ template <typename T> struct RationalCurve
 {
     unsigned int degree;
     std::vector<T> knots;
-    std::vector<glm::vec<3, T>> control_points;
+    std::vector<vec3<T>> control_points;
     std::vector<T> weights;
 
     RationalCurve() = default;
@@ -88,7 +88,7 @@ template <typename T> struct RationalCurve
     {
     }
     RationalCurve(unsigned int degree, const std::vector<T> &knots,
-                  const std::vector<glm::vec<3, T>> &control_points, const std::vector<T> weights)
+                  const std::vector<vec3<T>> &control_points, const std::vector<T> weights)
         : degree(degree), knots(knots), control_points(control_points), weights(weights)
     {
     }

@@ -12,9 +12,9 @@
 #include <stdexcept>
 #include <vector>
 
-#include "util/array2.h"
-#include "util/coord.h"
 #include "util/util.h"
+#include "./array2.h"
+#include "./coord.h"
 #include "refine.h"
 
 namespace tinynurbs

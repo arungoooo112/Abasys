@@ -15,11 +15,8 @@
 
 #include "glm/glm.hpp"
 
-template<typename T>
-using vec3 = glm::vec<3, T>;
-
-template<typename T>
-using hvec3 = glm::vec<4, T>;
+template<typename T> using vec3 = glm::tvec3<T>;
+template<typename T> using hvec3 = glm::tvec4<T>;
 
 using vec3f = vec3<float>;
 using vec3d = vec3<double>;

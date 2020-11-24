@@ -4,7 +4,7 @@
 #include <vector>
 #include "surface.h"
 #include "curve.h"
-#include "glm/glm.hpp"
+#include "./coord.h"
 
 using namespace tinynurbs;
 using namespace std;

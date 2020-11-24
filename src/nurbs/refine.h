@@ -2,12 +2,12 @@
 #ifndef TINYNURBS_REFINE_H
 #define TINYNURBS_REFINE_H
 
-
-#include "basis.h"
 #include <vector>
-#include "util/array2.h"
+#include "basis.h"
+#include "./array2.h"
+#include "./coord.h"
 #include "util/util.h"
-#include "glm/glm.hpp"
+
 
 namespace tinynurbs
 {

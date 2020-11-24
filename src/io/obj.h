@@ -8,14 +8,14 @@
 #ifndef TINYNURBS_OBJ_H
 #define TINYNURBS_OBJ_H
 
-#include "nurbs/curve.h"
-#include "nurbs/surface.h"
-#include "util/array2.h"
-#include "util/util.h"
-#include "glm/glm.hpp"
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include "nurbs/curve.h"
+#include "nurbs/surface.h"
+#include "./array2.h"
+#include "./coord.h"
+#include "util/util.h"
 
 namespace tinynurbs
 {
