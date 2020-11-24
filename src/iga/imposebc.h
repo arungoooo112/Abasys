@@ -6,7 +6,7 @@
 
 #include "nurbs/surface.h"
 #include "nurbs/curve.h"
-#include "nurbs/boundary.h"
+#include "boundary.h"
 #include "./coord.h"
 #include "./array2.h"
 #include "assembly.h"

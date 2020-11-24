@@ -2,8 +2,8 @@
 #define TINYNURBS_BOUNDARY_H
 
 #include <vector>
-#include "surface.h"
-#include "curve.h"
+#include "nurbs/surface.h"
+#include "nurbs/curve.h"
 #include "./coord.h"
 
 using namespace tinynurbs;
