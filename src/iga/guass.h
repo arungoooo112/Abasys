@@ -1,7 +1,7 @@
 #ifndef TINYIGA_GUASS_H
 #define TINYIGA_GUASS_H
 
-#include "util/array2.h"
+#include "./array2.h"
 namespace abab {
 //获取二维高斯积分点
 //@param[in) 高斯点个数

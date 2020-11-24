@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "util/array2.h" //array2
-#include "util/coord.h"
+#include "./array2.h" //array2
+#include "./coord.h"
 
 using std::vector;
 namespace abab {

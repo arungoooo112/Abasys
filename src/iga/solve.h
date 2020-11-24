@@ -4,8 +4,8 @@
 #include <vector>
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
-#include "iga/index.h"
-#include "iga/assembly.h"
+#include "index.h"
+#include "assembly.h"
 
 using namespace Eigen;
 using namespace std;
