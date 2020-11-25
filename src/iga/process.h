@@ -1,5 +1,5 @@
-#ifndef TINYIGA_PROCESS_H
-#define TINYIGA_PROCESS_H
+#ifndef ABASYS_PROCESS_H
+#define ABASYS_PROCESS_H
 
 #include <vector>
 #include <algorithm>
@@ -105,4 +105,4 @@ void Process<T>::solve()
 }
 
 } //namespace abab
-#endif //TINYIGA_PROCESS_H
+#endif //ABASYS_PROCESS_H

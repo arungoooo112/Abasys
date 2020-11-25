@@ -1,5 +1,5 @@
-#ifndef TINYIGA_FUNCTIONEXPR_H
-#define TINYIGA_FUNCTIONEXPR_H
+#ifndef ABASYS_FUNCTIONEXPR_H
+#define ABASYS_FUNCTIONEXPR_H
 
 #include <iostream>
 #include <string>
@@ -95,4 +95,4 @@ T FunctionExpr2<T>::operator()(T x, T y) {
 using FunctionExpr2d = FunctionExpr2<double>;
 
 
-#endif //TINYIGA_FUNCTIONEXPR_H
+#endif //ABASYS_FUNCTIONEXPR_H

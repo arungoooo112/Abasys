@@ -1,5 +1,5 @@
-#ifndef TINYIGA_STIFFNESS_H
-#define TINYIGA_STIFFNESS_H
+#ifndef ABASYS_STIFFNESS_H
+#define ABASYS_STIFFNESS_H
 
 #include <vector>
 #include <Eigen/Dense>
@@ -180,4 +180,4 @@ Eigen::SparseMatrix<T> assemblySparse(const tinynurbs::RationalSurface<T>& surf,
     return KK;
 }
 } //namespace abab
-#endif //TINYIGA_STIFFNESS_H
+#endif //ABASYS_STIFFNESS_H

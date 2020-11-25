@@ -1,5 +1,5 @@
-#ifndef TINYIGA_INDEX_H
-#define TINYIGA_INDEX_H
+#ifndef ABASYS_INDEX_H
+#define ABASYS_INDEX_H
 
 #include <vector>
 
@@ -120,4 +120,4 @@ vector<int> GlobalIndex1(int e, int degree) {
     return res;
 }
 } //namespace abab
-#endif //TINYIGA_INDEX_H
+#endif //ABASYS_INDEX_H

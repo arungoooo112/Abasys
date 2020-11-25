@@ -1,5 +1,5 @@
-#ifndef TINYIGA_IMPOSEBC_H
-#define TINYIGA_IMPOSEBC_H
+#ifndef ABASYS_IMPOSEBC_H
+#define ABASYS_IMPOSEBC_H
 
 #include <vector>
 #include <Eigen/Dense>
@@ -196,4 +196,4 @@ vector<int> getBoundaryDofs(const tinynurbs::RationalSurface<T>& srf, Boundary b
 }
 
 
-#endif //TINYIGA_IMPOSEBC_H
+#endif //ABASYS_IMPOSEBC_H

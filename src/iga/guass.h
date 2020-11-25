@@ -1,5 +1,5 @@
-#ifndef TINYIGA_GUASS_H
-#define TINYIGA_GUASS_H
+#ifndef ABASYS_GUASS_H
+#define ABASYS_GUASS_H
 
 #include "./array2.h"
 namespace abab {
@@ -40,4 +40,4 @@ array2<T> Guass1D(int n) {
 }
 
 } //namespace abab
-#endif //TINYIGA_GUASS_H
+#endif //ABASYS_GUASS_H

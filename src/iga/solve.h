@@ -1,5 +1,5 @@
-#ifndef TINYIGA_SOLVE_H
-#define TINYIGA_SOLVE_H
+#ifndef ABASYS_SOLVE_H
+#define ABASYS_SOLVE_H
 
 #include <vector>
 #include <Eigen/Dense>
@@ -85,4 +85,4 @@ void solve(const SparseMatrix<T> &KK, VectorX<T> &U, VectorX<T> &F, vector<int> 
 }
 
 } // namespace ababa
-#endif //TINYIGA_SOLVE_H
+#endif //ABASYS_SOLVE_H

@@ -1,5 +1,5 @@
-#ifndef TINYIGA_ASSEMBLY_H
-#define TINYIGA_ASSEMBLY_H
+#ifndef ABASYS_ASSEMBLY_H
+#define ABASYS_ASSEMBLY_H
 
 #include <vector>
 #include <iostream>
@@ -109,4 +109,4 @@ template <typename T> Eigen::MatrixX<T> simplyfy(const vector<int> &vec, const E
 } //namespace abab
 
 
-#endif //TINYIGA_ASSEMBLY_H
+#endif //ABASYS_ASSEMBLY_H

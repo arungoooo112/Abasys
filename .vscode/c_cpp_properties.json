@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "e:/glm-master"
+                "e:/eigen"
             ],
             "defines": [
                 "_DEBUG",
