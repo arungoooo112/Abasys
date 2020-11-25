@@ -7,9 +7,10 @@
 #include "../array2.h"
 #include "../coord.h"
 
+using std::vector;
+
 namespace funs
 {
-    using std::vector;
 
 template <typename T, template <typename> class vecType>
 void CurveKnotIns(int p, const vector<T> &UP, const vector<vecType<T>> &Pw,
@@ -124,10 +125,10 @@ void SurfaceKnotIns(int p, const vector<T> &UP, int q, const vector<T> &VP,
 // 输出：
 // 新的节点向量和新的控制点坐标：Ubar(m+r+2)，Qw(n+r+2)
 
-template <int dim, typename T>
+template <typename T, template<typename> class VecType>
 void RefineKnotVectCurve(int p, const vector<T> &U, 
-    const vector<glm::vec<dim, T>> &Pw, const vector<T> &X,
-    vector<T> &Ubar, vector<glm::vec<dim, T>> &Qw)
+    const vector<VecType<T>> &Pw, const vector<T> &X,
+    vector<T> &Ubar, vector<VecType<T>> &Qw)
 {
     int n = Pw.size() - 1; // 基函数，或者控制点的最大下标
     int r = X.size() - 1; //待插入的节点集合的最大下标
@@ -175,10 +176,10 @@ void RefineKnotVectCurve(int p, const vector<T> &U,
 
 // 通过插入一组新的节点，沿u方向来细化曲面
 
-template <int dim, typename T>
+template <typename T, template<typename> class VecType>
 void RefineKnotVectU(int p, const vector<T> &U,
-    const array2<glm::vec<dim, T>> &Pw, const vector<T> &X,
-    vector<T> &Ubar, array2<glm::vec<dim, T>> &Qw)
+    const array2<VecType<T>> &Pw, const vector<T> &X,
+    vector<T> &Ubar, array2<VecType<T>> &Qw)
 {   
     if(X.size() == 0) return;
 
@@ -234,10 +235,10 @@ void RefineKnotVectU(int p, const vector<T> &U,
 
 // 通过插入一组新的节点，沿v方向来细化曲面
 
-template <int dim, typename T>
+template <typename T, template<typename> class VecType>
 void RefineKnotVectV(int q, const vector<T> &V,
-    const array2<glm::vec<dim, T>> &Pw, const vector<T> &X,
-    vector<T> &Vbar, array2<glm::vec<dim, T>> &Qw)
+    const array2<VecType<T>> &Pw, const vector<T> &X,
+    vector<T> &Vbar, array2<VecType<T>> &Qw)
 {   
     if(X.size() == 0) return;
 
@@ -290,10 +291,10 @@ void RefineKnotVectV(int q, const vector<T> &V,
     }
 }
 
-template <int dim, typename T>
+template <typename T, template<typename> class VecType>
 void RefineKnotVectSurface(int p, int q, const vector<T> &U, const vector<T> &V,
-    const array2<glm::vec<dim, T>> &Pw, const vector<T> &X, const vector<T> &Y,
-    vector<T> &Ubar, vector<T> &Vbar, array2<glm::vec<dim, T>> &Qw) 
+    const array2<VecType<T>> &Pw, const vector<T> &X, const vector<T> &Y,
+    vector<T> &Ubar, vector<T> &Vbar, array2<VecType<T>> &Qw) 
 {
     RefineKnotVectU(p, U, Pw, X, Ubar, Qw);
     RefineKnotVectV(q, v, Pw, Y, Vbar, Qw);
