@@ -1,5 +1,5 @@
 
-#include "abasys.h"
+#include "include/abasys.h"
 #include "ExactSolution/SPSheetCircHoleExactStress.h"
 // 一个分析样例
 using namespace abab;

@@ -21,10 +21,10 @@ namespace tinynurbs
  * @param[in] pt Point in homogenous coordinates
  * @return Point in cartesian coordinates
  */
-template <int nd, typename T>
-inline glm::vec<nd - 1, T> homogenousToCartesian(const glm::vec<nd, T> &pt)
+template <typename T>
+inline vec3<T> homogenousToCartesian(const hvec3<T> &pt)
 {
-    return glm::vec<nd - 1, T>(pt / pt[pt.length() - 1]);
+    return vec3<T>(pt / pt[pt.length() - 1]);
 }
 
 /**
@@ -34,9 +34,9 @@ inline glm::vec<nd - 1, T> homogenousToCartesian(const glm::vec<nd, T> &pt)
  * @param[out] pts Points in cartesian coordinates
  * @param[out] ws Homogenous weights
  */
-template <int nd, typename T>
-inline void homogenousToCartesian(const std::vector<glm::vec<nd, T>> &ptsws,
-                                  std::vector<glm::vec<nd - 1, T>> &pts, std::vector<T> &ws)
+template <typename T>
+inline void homogenousToCartesian(const std::vector<hvec3<T>> &ptsws,
+                                  std::vector<vec3<T>> &pts, std::vector<T> &ws)
 {
     pts.clear();
     ws.clear();
@@ -44,8 +44,8 @@ inline void homogenousToCartesian(const std::vector<glm::vec<nd, T>> &ptsws,
     ws.reserve(ptsws.size());
     for (int i = 0; i < ptsws.size(); ++i)
     {
-        const glm::vec<nd, T> &ptw_i = ptsws[i];
-        pts.push_back(glm::vec<nd - 1, T>(ptw_i / ptw_i[ptw_i.length() - 1]));
+        const hvec3<T> &ptw_i = ptsws[i];
+        pts.push_back(vec3<T>(ptw_i / ptw_i[ptw_i.length() - 1]));
         ws.push_back(ptw_i[ptw_i.length() - 1]);
     }
 }
@@ -57,9 +57,9 @@ inline void homogenousToCartesian(const std::vector<glm::vec<nd, T>> &ptsws,
  * @param[out] pts Points in cartesian coordinates
  * @param[out] ws Homogenous weights
  */
-template <int nd, typename T>
-inline void homogenousToCartesian(const array2<glm::vec<nd, T>> &ptsws,
-                                  array2<glm::vec<nd - 1, T>> &pts, array2<T> &ws)
+template <typename T>
+inline void homogenousToCartesian(const array2<hvec3<T>> &ptsws,
+                                  array2<vec3<T>> &pts, array2<T> &ws)
 {
     pts.resize(ptsws.rows(), ptsws.cols());
     ws.resize(ptsws.rows(), ptsws.cols());
@@ -67,9 +67,9 @@ inline void homogenousToCartesian(const array2<glm::vec<nd, T>> &ptsws,
     {
         for (int j = 0; j < ptsws.cols(); ++j)
         {
-            const glm::vec<nd, T> &ptw_ij = ptsws(i, j);
+            const hvec3<T> &ptw_ij = ptsws(i, j);
             T w_ij = ptw_ij[nd - 1];
-            pts(i, j) = glm::vec<nd - 1, T>(ptw_ij / w_ij);
+            pts(i, j) = vec3<T>(ptw_ij / w_ij);
             ws(i, j) = w_ij;
         }
     }
@@ -82,10 +82,10 @@ inline void homogenousToCartesian(const array2<glm::vec<nd, T>> &ptsws,
  * @param[in] w Weight
  * @return Input point in homogenous coordinates
  */
-template <int nd, typename T>
-inline glm::vec<nd + 1, T> cartesianToHomogenous(const glm::vec<nd, T> &pt, T w)
+template <typename T>
+inline hvec3<T> cartesianToHomogenous(const vec3<T> &pt, T w)
 {
-    return glm::vec<nd + 1, T>(pt * w, w);
+    return hvec3<T>(pt * w, w);
 }
 
 /**
@@ -94,11 +94,11 @@ inline glm::vec<nd + 1, T> cartesianToHomogenous(const glm::vec<nd, T> &pt, T w)
  * @param[in] ws Weights
  * @return Points in homogenous coordinates
  */
-template <int nd, typename T>
-inline std::vector<glm::vec<nd + 1, T>>
-cartesianToHomogenous(const std::vector<glm::vec<nd, T>> &pts, const std::vector<T> &ws)
+template <typename T>
+inline std::vector<hvec3<T>>
+cartesianToHomogenous(const std::vector<vec3<T>> &pts, const std::vector<T> &ws)
 {
-    std::vector<glm::vec<nd + 1, T>> Cw;
+    std::vector<hvec3<T>> Cw;
     Cw.reserve(pts.size());
     for (int i = 0; i < pts.size(); ++i)
     {
@@ -113,11 +113,11 @@ cartesianToHomogenous(const std::vector<glm::vec<nd, T>> &pts, const std::vector
  * @param[in] ws Weights
  * @return Points in homogenous coordinates
  */
-template <int nd, typename T>
-inline array2<glm::vec<nd + 1, T>> cartesianToHomogenous(const array2<glm::vec<nd, T>> &pts,
+template <typename T>
+inline array2<hvec3<T>> cartesianToHomogenous(const array2<vec3<T>> &pts,
                                                          const array2<T> &ws)
 {
-    array2<glm::vec<nd + 1, T>> Cw(pts.rows(), pts.cols());
+    array2<hvec3<T>> Cw(pts.rows(), pts.cols());
     for (int i = 0; i < pts.rows(); ++i)
     {
         for (int j = 0; j < pts.cols(); ++j)
@@ -134,10 +134,10 @@ inline array2<glm::vec<nd + 1, T>> cartesianToHomogenous(const array2<glm::vec<n
  * @param[in] pt Point in homogenous coordinates
  * @return Input point in cartesian coordinates
  */
-template <int nd, typename T>
-inline glm::vec<nd - 1, T> truncateHomogenous(const glm::vec<nd, T> &pt)
+template <typename T>
+inline vec3<T> truncateHomogenous(const hvec3<T> &pt)
 {
-    return glm::vec<nd - 1, T>(pt);
+    return vec3<T>(pt);
 }
 
 /**
