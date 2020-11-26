@@ -9,9 +9,9 @@
                
 *a basic NURBS-based IsoGeometric Analysis package written in C++.*
 
-Abasys 是一个用C++编写实现的轻量级的等几何分析库。现阶段可以对二维线弹性问题进行求解，具体可以看
+Abasys 是一个用C++编写实现的轻量级的等几何分析库。现阶段可以用其对二维线弹性问题进行求解和分析，
 
-[example](./example/SPSheetCircHole.cpp)中给出的一个iga经典算例的分析程序。
+Abasys的使用方法和iga的分析流程具体可以看[example](./example/SPSheetCircHole.cpp)中给出的一个经典算例程序。
 
 Abasys主要由三部分组成，首先最上层便是进行等几何分析的iga子模块，其所有程序放在命名空间abab（阿巴阿巴）下。
 
