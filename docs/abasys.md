@@ -5,7 +5,7 @@
 
 ![单元编号](单元编号.png)
 
-获取一个节点所在的单元可以这样写：
+获取曲面上一个节点对(u,v)所在的单元可以这样写：
 
 ~~~C++
 int ei = tinynurbs::findSpan(surf.degree_u, surf.knots_u, u);
