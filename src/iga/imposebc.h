@@ -17,7 +17,7 @@ using Eigen::VectorX;
 
 template<typename T, typename Function>
 VectorX<T> calcElementeEquivalentVals2D(int ei, int deg, 
-    const vector<T>& U, const vector<glm::vec<3, T>> points, 
+    const vector<T>& U, const vector<vec3<T>> points, 
     const vector<T>& weights, Function fun) 
 {
     
@@ -69,7 +69,7 @@ VectorX<T> calcElementeEquivalentVals2D(int ei, int deg,
 
 template<typename T, typename Function>
 VectorX<T> calcEquivalentVals2D(int deg, 
-    const vector<T>& U, const vector<glm::vec<3, T>> points, 
+    const vector<T>& U, const vector<vec3<T>> points, 
     const vector<T>& weights, Function fun) 
 {
     VectorX<T> res = Eigen::VectorX<T>::Zero(points.size());

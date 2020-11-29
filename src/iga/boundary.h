@@ -2,35 +2,34 @@
 #define TINYNURBS_BOUNDARY_H
 
 #include <vector>
+#include <stdexcept>
 #include "nurbs/surface.h"
 #include "nurbs/curve.h"
 #include "./coord.h"
 
-using namespace tinynurbs;
-using namespace std;
-using namespace glm;
+namespace abab{
 
 enum Boundary {U0, U1, V0, V1};
 
 template<typename T>
-RationalCurve<T> getBoundaryU0(const RationalSurface<T>& surf)
+tinynurbs::RationalCurve<T> getBoundaryU0(const tinynurbs::RationalSurface<T>& surf)
 {
     unsigned int degree = surf.degree_v;
     std::vector<T> knots = surf.knots_v;
-    std::vector<glm::vec<3, T>> points;
+    std::vector<vec3<T>> points;
     std::vector<T> weights;
     for (int c = 0; c < surf.control_points.cols(); c++) {
         points.push_back(surf.control_points(0, c));
         weights.push_back(surf.weights(0, c));
     }
-    return RationalCurve<T>(degree, knots, points, weights);
+    return tinynurbs::RationalCurve<T>(degree, knots, points, weights);
 }
 
-template<typename T> RationalCurve<T> getBoundaryU1(const RationalSurface<T> &surf)
+template<typename T> tinynurbs::RationalCurve<T> getBoundaryU1(const tinynurbs::RationalSurface<T> &surf)
 {
     unsigned int degree = surf.degree_v;
     std::vector<T> knots = surf.knots_v;
-    std::vector<glm::vec<3, T>> points;
+    std::vector<vec3<T>> points;
     std::vector<T> weights;
     int rn = surf.control_points.rows() - 1;
     for (int c = 0; c < surf.control_points.cols(); c++)
@@ -38,42 +37,42 @@ template<typename T> RationalCurve<T> getBoundaryU1(const RationalSurface<T> &su
         points.push_back(surf.control_points(rn, c));
         weights.push_back(surf.weights(rn, c));
     }
-    return RationalCurve<T>(degree, knots, points, weights);
+    return tinynurbs::RationalCurve<T>(degree, knots, points, weights);
 }
 
 
 template<typename T>
-RationalCurve<T> getBoundaryV0(const RationalSurface<T>& surf)
+tinynurbs::RationalCurve<T> getBoundaryV0(const tinynurbs::RationalSurface<T>& surf)
 {
     unsigned int degree = surf.degree_u;
     std::vector<T> knots = surf.knots_u;
-    std::vector<glm::vec<3, T>> points;
+    std::vector<vec3<T>> points;
     std::vector<T> weights;
     for (int r = 0; r < surf.control_points.rows(); r++) {
         points.push_back(surf.control_points(r, 0));
         weights.push_back(surf.weights(r, 0));
     }
-    return RationalCurve<T>(degree, knots, points, weights);
+    return tinynurbs::RationalCurve<T>(degree, knots, points, weights);
 }
 
 
 template<typename T>
-RationalCurve<T> getBoundaryV1(const RationalSurface<T>& surf)
+tinynurbs::RationalCurve<T> getBoundaryV1(const tinynurbs::RationalSurface<T>& surf)
 {
     unsigned int degree = surf.degree_u;
     std::vector<T> knots = surf.knots_u;
-    std::vector<glm::vec<3, T>> points;
+    std::vector<vec3<T>> points;
     std::vector<T> weights;
     int cn = surf.control_points.cols() - 1;
     for (int r = 0; r < surf.control_points.rows(); r++) {
         points.push_back(surf.control_points(r, cn));
         weights.push_back(surf.weights(r, cn));
     }
-    return RationalCurve<T>(degree, knots, points, weights);
+    return tinynurbs::RationalCurve<T>(degree, knots, points, weights);
 }
 
 template<typename T>
-RationalCurve<T> getBoundary(const RationalSurface<T>& surf, Boundary b)
+tinynurbs::RationalCurve<T> getBoundary(const tinynurbs::RationalSurface<T>& surf, Boundary b)
 {
     switch (b)
     {
@@ -90,13 +89,13 @@ RationalCurve<T> getBoundary(const RationalSurface<T>& surf, Boundary b)
         return getBoundaryV1(surf);
         break;
     default:
-        return RationalCurve<T>();
+        throw std::runtime_error("invalid boundry");
     }
 }
 
 
 
-
+} //namespace abab
 
 
 #endif //TINYNURBS_BOUNDARY_H

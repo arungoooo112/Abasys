@@ -44,7 +44,7 @@ template <typename T> int knotMultiplicity(const std::vector<T> &knots, unsigned
  */
 template <typename T> bool isValidCurve(const Curve<T> &crv)
 {
-    return isValidCurve<T>(crv.degree, crv.knots, crv.control_points);
+    return funs::isValidCurve<T>(crv.degree, crv.knots, crv.control_points);
 }
 
 /**
@@ -55,7 +55,7 @@ template <typename T> bool isValidCurve(const Curve<T> &crv)
  */
 template <typename T> bool isValidCurve(const RationalCurve<T> &crv)
 {
-    return isValidCurve(crv.degree, crv.knots, crv.control_points, crv.weights);
+    return funs::isValidCurve(crv.degree, crv.knots, crv.control_points, crv.weights);
 }
 
 /**
@@ -66,7 +66,7 @@ template <typename T> bool isValidCurve(const RationalCurve<T> &crv)
  */
 template <typename T> bool isValidSurface(const Surface<T> &srf)
 {
-    return isValidSurface(srf.degree_u, srf.degree_v, srf.knots_u, srf.knots_v,
+    return funs::isValidSurface(srf.degree_u, srf.degree_v, srf.knots_u, srf.knots_v,
                                     srf.control_points);
 }
 
@@ -78,7 +78,7 @@ template <typename T> bool isValidSurface(const Surface<T> &srf)
  */
 template <typename T> bool isValidSurface(const RationalSurface<T> &srf)
 {
-    return isValidSurface(srf.degree_u, srf.degree_v, srf.knots_u, srf.knots_v,
+    return funs::isValidSurface(srf.degree_u, srf.degree_v, srf.knots_u, srf.knots_v,
                                     srf.control_points, srf.weights);
 }
 
