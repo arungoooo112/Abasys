@@ -31,5 +31,11 @@ vec3<T> rotateZ(const vec3<T>& a, T alpha) {
     T y = tx * sin(alpha) + ty * cos(alpha);
     return vec3<T>(x, y, a.z);
 }
+using glm::cross;
+using glm::length;
+/*
+    vec3<T> n = glm::cross(ptder(0, 1), ptder(1, 0));
+    T n_len = glm::length(n);
 
+    */
 #endif //ABASYS_COORD_H

@@ -140,7 +140,7 @@ template <typename T> vec3<T> curveTangent(const Curve<T> &crv, T u)
 {
     std::vector<vec3<T>> ders = curveDerivatives(crv, 1, u);
     vec3<T> du = ders[1];
-    T du_len = glm::length(du);
+    T du_len = length(du);
     if (!close(du_len, T(0)))
     {
         du /= du_len;
@@ -157,7 +157,7 @@ template <typename T> vec3<T> curveTangent(const RationalCurve<T> &crv, T u)
 {
     std::vector<vec3<T>> ders = curveDerivatives(crv, 1, u);
     vec3<T> du = ders[1];
-    T du_len = glm::length(du);
+    T du_len = length(du);
     if (!close(du_len, T(0)))
     {
         du /= du_len;
@@ -317,8 +317,8 @@ std::tuple<vec3<T>, vec3<T>> surfaceTangent(const Surface<T> &srf, T u, T v)
     array2<vec3<T>> ptder = surfaceDerivatives(srf, 1, u, v);
     vec3<T> du = ptder(1, 0);
     vec3<T> dv = ptder(0, 1);
-    T du_len = glm::length(ptder(1, 0));
-    T dv_len = glm::length(ptder(0, 1));
+    T du_len = length(ptder(1, 0));
+    T dv_len = length(ptder(0, 1));
     if (!close(du_len, T(0)))
     {
         du /= du_len;
@@ -344,8 +344,8 @@ std::tuple<vec3<T>, vec3<T>> surfaceTangent(const RationalSurface<T> &srf, T u, 
     array2<vec3<T>> ptder = surfaceDerivatives(srf, 1, u, v);
     vec3<T> du = ptder(1, 0);
     vec3<T> dv = ptder(0, 1);
-    T du_len = glm::length(ptder(1, 0));
-    T dv_len = glm::length(ptder(0, 1));
+    T du_len = length(ptder(1, 0));
+    T dv_len = length(ptder(0, 1));
     if (!close(du_len, T(0)))
     {
         du /= du_len;
@@ -367,8 +367,8 @@ std::tuple<vec3<T>, vec3<T>> surfaceTangent(const RationalSurface<T> &srf, T u, 
 template <typename T> vec3<T> surfaceNormal(const Surface<T> &srf, T u, T v)
 {
     array2<vec3<T>> ptder = surfaceDerivatives(srf, 1, u, v);
-    vec3<T> n = glm::cross(ptder(0, 1), ptder(1, 0));
-    T n_len = glm::length(n);
+    vec3<T> n = cross(ptder(0, 1), ptder(1, 0));
+    T n_len = length(n);
     if (!close(n_len, T(0)))
     {
         n /= n_len;
@@ -386,8 +386,8 @@ template <typename T> vec3<T> surfaceNormal(const Surface<T> &srf, T u, T v)
 template <typename T> vec3<T> surfaceNormal(const RationalSurface<T> &srf, T u, T v)
 {
     array2<vec3<T>> ptder = surfaceDerivatives(srf, 1, u, v);
-    vec3<T> n = glm::cross(ptder(0, 1), ptder(1, 0));
-    T n_len = glm::length(n);
+    vec3<T> n = cross(ptder(0, 1), ptder(1, 0));
+    T n_len = length(n);
     if (!close(n_len, T(0)))
     {
         n /= n_len;
