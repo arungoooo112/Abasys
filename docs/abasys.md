@@ -9,8 +9,8 @@
 获取曲面上一个节点对(u,v)所在的单元可以这样写：
 
 ~~~C++
-int ei = tinynurbs::findSpan(surf.degree_u, surf.knots_u, u);
-int ej = tinynurbs::findSpan(surf.degree_v, surf.knots_v, v);
+int ei = findSpan(surf.degree_u, surf.knots_u, u);
+int ej = findSpan(surf.degree_v, surf.knots_v, v);
 ~~~
 
 所以遍历一个nurbs曲面的所有单元可以这样写
