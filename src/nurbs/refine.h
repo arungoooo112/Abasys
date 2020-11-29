@@ -8,10 +8,10 @@
 #include "./coord.h"
 #include "util/util.h"
 
+using std::vector;
 
 namespace tinynurbs
 {
-    using std::vector;
 
 template <typename T, template <typename> class vecType>
 void CurveKnotIns(int p, const vector<T> &UP, const vector<vecType<T>> &Pw,

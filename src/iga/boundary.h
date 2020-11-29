@@ -11,8 +11,7 @@ namespace abab{
 
 enum Boundary {U0, U1, V0, V1};
 
-template<typename T>
-tinynurbs::RationalCurve<T> getBoundaryU0(const tinynurbs::RationalSurface<T>& surf)
+template<typename T> tinynurbs::RationalCurve<T> getBoundaryU0(const tinynurbs::RationalSurface<T>& surf)
 {
     unsigned int degree = surf.degree_v;
     std::vector<T> knots = surf.knots_v;
