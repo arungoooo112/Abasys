@@ -45,7 +45,7 @@ template <typename T> vec3<T> curvePoint(const Curve<T> &crv, T u)
 template <typename T> vec3<T> curvePoint(const RationalCurve<T> &crv, T u)
 {
 
-    typedef glm::vec<4, T> tvecnp1;
+    typedef hvec3<T> tvecnp1;
 
     // Compute homogenous coordinates of control points
     std::vector<tvecnp1> Cw;
@@ -92,7 +92,7 @@ std::vector<vec3<T>> curveDerivatives(const RationalCurve<T> &crv, int num_ders,
 {
 
     typedef vec3<T> tvecn;
-    typedef glm::vec<4, T> tvecnp1;
+    typedef hvec3<T> tvecnp1;
 
     std::vector<tvecn> curve_ders;
     curve_ders.reserve(num_ders + 1);
@@ -188,7 +188,7 @@ template <typename T> vec3<T> surfacePoint(const Surface<T> &srf, T u, T v)
 template <typename T> vec3<T> surfacePoint(const RationalSurface<T> &srf, T u, T v)
 {
 
-    typedef glm::vec<4, T> tvecnp1;
+    typedef hvec3<T> tvecnp1;
 
     // Compute homogenous coordinates of control points
     array2<tvecnp1> Cw;
