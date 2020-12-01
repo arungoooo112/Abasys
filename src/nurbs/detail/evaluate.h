@@ -12,9 +12,7 @@
 #include <tuple>
 #include <vector>
 #include "../array2.h"
-#include "basis.h"
-#include "curve.h"
-#include "surface.h"
+#include "./basis.h"
 #include "util/util.h"
 
 

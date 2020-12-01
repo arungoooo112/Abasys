@@ -36,10 +36,10 @@ namespace internal
  */
 template <typename T>
 void curveReadOBJ(std::istream &is, unsigned int &deg, std::vector<T> &knots,
-                  std::vector<glm::vec<3, T>> &ctrlPts, std::vector<T> &weights, bool &rational)
+                  std::vector<vec3<T>> &ctrlPts, std::vector<T> &weights, bool &rational)
 {
     T knot_min = 0, knot_max = 1;
-    std::vector<glm::vec<3, T>> ctrl_pts_buf;
+    std::vector<vec3<T>> ctrl_pts_buf;
     std::vector<T> weights_buf;
     std::vector<int> indices;
     std::vector<T> temp_knots;
@@ -195,12 +195,12 @@ void curveReadOBJ(std::istream &is, unsigned int &deg, std::vector<T> &knots,
 template <typename T>
 void surfaceReadOBJ(std::istream &is, unsigned int &deg_u, unsigned int &deg_v,
                     std::vector<T> &knots_u, std::vector<T> &knots_v,
-                    array2<glm::vec<3, T>> &ctrlPts, array2<T> &weights, bool &rational)
+                    array2<vec3<T>> &ctrlPts, array2<T> &weights, bool &rational)
 {
     T uknot_min = 0, uknot_max = 1;
     T vknot_min = 0, vknot_max = 1;
 
-    std::vector<glm::vec<3, T>> ctrl_pts_buf;
+    std::vector<vec3<T>> ctrl_pts_buf;
     std::vector<T> weights_buf;
     std::vector<int> indices;
     std::vector<T> temp_uknots;
@@ -376,7 +376,7 @@ void surfaceReadOBJ(std::istream &is, unsigned int &deg_u, unsigned int &deg_v,
  */
 template <typename T>
 void curveSaveOBJ(std::ostream &os, unsigned int degree, const std::vector<T> &knots,
-                  const std::vector<glm::vec<3, T>> &ctrlPts, const std::vector<T> &weights,
+                  const std::vector<vec3<T>> &ctrlPts, const std::vector<T> &weights,
                   bool rational)
 {
     using std::endl;
@@ -426,7 +426,7 @@ void curveSaveOBJ(std::ostream &os, unsigned int degree, const std::vector<T> &k
 template <typename T>
 void surfaceSaveOBJ(std::ostream &os, unsigned int deg_u, unsigned int deg_v,
                     const std::vector<T> &knots_u, const std::vector<T> &knots_v,
-                    const array2<glm::vec<3, T>> &ctrlPts, const array2<T> &weights, bool rational)
+                    const array2<vec3<T>> &ctrlPts, const array2<T> &weights, bool rational)
 {
 
     using std::endl;
@@ -491,7 +491,7 @@ void surfaceSaveOBJ(std::ostream &os, unsigned int deg_u, unsigned int deg_v,
 template <typename T> RationalCurve<T> curveReadOBJ(std::istream &is)
 {
     RationalCurve<T> crv;
-    std::vector<glm::vec<3, T>> control_points;
+    std::vector<vec3<T>> control_points;
     bool rat;
     internal::curveReadOBJ(is, crv.degree, crv.knots, crv.control_points, crv.weights, rat);
     return crv;
