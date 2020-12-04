@@ -5,10 +5,10 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
-#include "./coord.h" 
-#include "./array2.h"
-#include "./nurbs/basis.h"
-#include "./nurbs/surface.h"
+#include "util/coord.h" 
+#include "util/array2.h"
+#include "nurbs/basis.h"
+#include "nurbs/surface.h"
 
 #include "guass.h"
 #include "index.h"

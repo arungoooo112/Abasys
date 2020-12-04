@@ -3,11 +3,11 @@
 
 #include <Eigen/Dense>
 
-#include "./nurbs/surface.h"
-#include "./nurbs/basis.h"
+#include "nurbs/surface.h"
+#include "nurbs/basis.h"
 #include "util/util.h"
-#include "./coord.h" 
-#include "./array2.h"
+#include "util/coord.h" 
+#include "util/array2.h"
 
 #include "guass.h"
 #include "index.h"

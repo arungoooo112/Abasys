@@ -4,17 +4,22 @@
 #include <vector>
 #include <Eigen/Dense>
 
-#include "./nurbs/surface.h"
-#include "./nurbs/curve.h"
+#include "nurbs/surface.h"
+#include "nurbs/curve.h"
 #include "boundary.h"
-#include "./coord.h"
-#include "./array2.h"
+#include "util/coord.h"
+#include "util/array2.h"
 #include "assembly.h"
 #include "guass.h"
 
 using std::vector;
 using Eigen::VectorX;
 
+
+namespace abab {
+
+    enum Boundary {U0, U1, V0, V1};
+    
 template<typename T, typename Function>
 VectorX<T> calcElementeEquivalentVals2D(int ei, int deg, 
     const vector<T>& U, const vector<vec3<T>> points, 
@@ -194,6 +199,6 @@ vector<int> getBoundaryDofs(const tinynurbs::RationalSurface<T>& srf, Boundary b
     }
     return res;
 }
-
+} //namespace abab
 
 #endif //ABASYS_IMPOSEBC_H

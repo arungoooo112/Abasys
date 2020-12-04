@@ -3,9 +3,9 @@
 
 #include <vector>
 #include <stdexcept>
-#include "./nurbs/surface.h"
-#include "./nurbs/curve.h"
-#include "./coord.h"
+#include "nurbs/surface.h"
+#include "nurbs/curve.h"
+#include "util/coord.h"
 
 namespace abab{
 
@@ -88,7 +88,7 @@ tinynurbs::RationalCurve<T> getBoundary(const tinynurbs::RationalSurface<T>& sur
         return getBoundaryV1(surf);
         break;
     default:
-        throw std::runtime_error("invalid boundry");
+        throw std::runtime_error("invalid boundry in surface");
     }
 }
 

@@ -11,10 +11,10 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-#include "./nurbs/curve.h"
-#include "./nurbs/surface.h"
-#include "./array2.h"
-#include "./coord.h"
+#include "nurbs/curve.h"
+#include "nurbs/surface.h"
+#include "util/array2.h"
+#include "util/coord.h"
 #include "util/util.h"
 
 namespace tinynurbs
