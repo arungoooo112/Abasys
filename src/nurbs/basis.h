@@ -9,7 +9,7 @@
 #define TINYNURBS_BASIS_H
 
 #include <vector>
-#include "./array2.h"
+#include "util/array2.h"
 #include "util/util.h"
 
 namespace tinynurbs

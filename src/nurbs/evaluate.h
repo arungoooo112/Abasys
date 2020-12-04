@@ -14,8 +14,8 @@
 #include "basis.h"
 #include "curve.h"
 #include "surface.h"
-#include "./coord.h"
-#include "./array2.h"
+#include "util/coord.h"
+#include "util/array2.h"
 #include "util/util.h"
 #include "detail/evaluate.h"
 

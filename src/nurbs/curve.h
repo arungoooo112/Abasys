@@ -13,7 +13,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "./coord.h"
+#include "util/coord.h"
 #include "refine.h"
 #include "util/util.h"
 

@@ -3,9 +3,9 @@
 #define FUNS_REFINE_H
 
 #include <vector>
-#include "basis.h"
-#include "../array2.h"
-#include "../coord.h"
+#include "nurbs/basis.h"
+#include "util/coord.h"
+#include "util/array2.h"
 
 using std::vector;
 

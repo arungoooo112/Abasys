@@ -10,7 +10,7 @@
 
 #include <tuple>
 #include <vector>
-#include "./coord.h"
+#include "util/coord.h"
 #include "check.h"
 #include "curve.h"
 #include "surface.h"

@@ -4,8 +4,8 @@
 #include <vector>
 #include <Eigen/Dense>
 
-#include "nurbs/surface.h"
-#include "nurbs/curve.h"
+#include "./nurbs/surface.h"
+#include "./nurbs/curve.h"
 #include "boundary.h"
 #include "./coord.h"
 #include "./array2.h"

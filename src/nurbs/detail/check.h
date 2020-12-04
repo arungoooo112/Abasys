@@ -12,8 +12,8 @@
 #include <algorithm> // issort 
 #include <vector>
 
-#include "../coord.h"
-#include "../array2.h"
+#include "util/coord.h"
+#include "util/array2.h"
 
 
 namespace funs

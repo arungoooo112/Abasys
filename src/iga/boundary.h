@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <stdexcept>
-#include "nurbs/surface.h"
-#include "nurbs/curve.h"
+#include "./nurbs/surface.h"
+#include "./nurbs/curve.h"
 #include "./coord.h"
 
 namespace abab{

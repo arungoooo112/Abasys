@@ -4,8 +4,8 @@
 #include <cmath>
 #include <vector>
 #include <initializer_list>
-#include "nurbs/curve.h"
-#include "nurbs/surface.h"
+#include "./nurbs/curve.h"
+#include "./nurbs/surface.h"
 #include "./coord.h"
 #include "./array2.h"
 

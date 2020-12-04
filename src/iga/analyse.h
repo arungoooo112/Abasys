@@ -3,7 +3,7 @@
 
 #include <Eigen/Dense>
 
-#include "nurbs/surface.h"
+#include "./nurbs/surface.h"
 #include "elematrix.h"
 #include "assembly.h"
 

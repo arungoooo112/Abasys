@@ -5,8 +5,8 @@
 #include <vector>
 #include "./array2.h"
 #include "./coord.h"
-#include "nurbs/curve.h"
-#include "nurbs/surface.h"
+#include "./nurbs/curve.h"
+#include "./nurbs/surface.h"
 
 
 namespace tinynurbs {

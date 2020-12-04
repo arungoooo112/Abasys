@@ -13,8 +13,8 @@
 #include <vector>
 
 #include "util/util.h"
-#include "./array2.h"
-#include "./coord.h"
+#include "util/array2.h"
+#include "util/coord.h"
 #include "refine.h"
 
 namespace tinynurbs

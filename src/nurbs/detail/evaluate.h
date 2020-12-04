@@ -11,7 +11,7 @@
 
 #include <tuple>
 #include <vector>
-#include "../array2.h"
+#include "util/array2.h"
 #include "./basis.h"
 #include "util/util.h"
 
