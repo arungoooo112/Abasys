@@ -12,9 +12,9 @@ using std::vector;
 namespace funs
 {
 
-template <typename T, template <typename> class vecType>
-void CurveKnotIns(int p, const vector<T> &UP, const vector<vecType<T>> &Pw,
-    T u, int k, int s, int r, vector<T> &UQ, vector<vecType<T>> &Qw)
+template <typename T>
+void CurveKnotIns(int p, const vector<T> &UP, const vector<hvec3<T>> &Pw,
+    T u, int k, int s, int r, vector<T> &UQ, vector<hvec3<T>> &Qw)
 {
     int mp = UP.size() - 1;
     int np = mp - p - 1;
@@ -43,10 +43,10 @@ void CurveKnotIns(int p, const vector<T> &UP, const vector<vecType<T>> &Pw,
 }
 
 
-template <typename T, template <typename> class vecType>
+template <typename T>
 void SurfaceKnotIns(int p, const vector<T> &UP, int q, const vector<T> &VP,
-    const array2<vecType<T>> &Pw, bool dir, T uv,  int k, int s, int r, 
-    vector<T> &UQ, vector<T> &VQ, array2<vecType<T>> &Qw) 
+    const array2<hvec3<T>> &Pw, bool dir, T uv,  int k, int s, int r, 
+    vector<T> &UQ, vector<T> &VQ, array2<hvec3<T>> &Qw) 
 {
     int mu = UP.size() - 1;
     int nu = mu - p - 1;
@@ -125,10 +125,10 @@ void SurfaceKnotIns(int p, const vector<T> &UP, int q, const vector<T> &VP,
 // 输出：
 // 新的节点向量和新的控制点坐标：Ubar(m+r+2)，Qw(n+r+2)
 
-template <typename T, template<typename> class VecType>
+template <typename T>
 void RefineKnotVectCurve(int p, const vector<T> &U, 
-    const vector<VecType<T>> &Pw, const vector<T> &X,
-    vector<T> &Ubar, vector<VecType<T>> &Qw)
+    const vector<hvec3<T>> &Pw, const vector<T> &X,
+    vector<T> &Ubar, vector<hvec3<T>> &Qw)
 {
     int n = Pw.size() - 1; // 基函数，或者控制点的最大下标
     int r = X.size() - 1; //待插入的节点集合的最大下标
@@ -176,10 +176,10 @@ void RefineKnotVectCurve(int p, const vector<T> &U,
 
 // 通过插入一组新的节点，沿u方向来细化曲面
 
-template <typename T, template<typename> class VecType>
+template <typename T>
 void RefineKnotVectU(int p, const vector<T> &U,
-    const array2<VecType<T>> &Pw, const vector<T> &X,
-    vector<T> &Ubar, array2<VecType<T>> &Qw)
+    const array2<hvec3<T>> &Pw, const vector<T> &X,
+    vector<T> &Ubar, array2<hvec3<T>> &Qw)
 {   
     if(X.size() == 0) return;
 
@@ -235,10 +235,10 @@ void RefineKnotVectU(int p, const vector<T> &U,
 
 // 通过插入一组新的节点，沿v方向来细化曲面
 
-template <typename T, template<typename> class VecType>
+template <typename T>
 void RefineKnotVectV(int q, const vector<T> &V,
-    const array2<VecType<T>> &Pw, const vector<T> &X,
-    vector<T> &Vbar, array2<VecType<T>> &Qw)
+    const array2<hvec3<T>> &Pw, const vector<T> &X,
+    vector<T> &Vbar, array2<hvec3<T>> &Qw)
 {   
     if(X.size() == 0) return;
 
@@ -291,10 +291,10 @@ void RefineKnotVectV(int q, const vector<T> &V,
     }
 }
 
-template <typename T, template<typename> class VecType>
+template <typename T>
 void RefineKnotVectSurface(int p, int q, const vector<T> &U, const vector<T> &V,
-    const array2<VecType<T>> &Pw, const vector<T> &X, const vector<T> &Y,
-    vector<T> &Ubar, vector<T> &Vbar, array2<VecType<T>> &Qw) 
+    const array2<hvec3<T>> &Pw, const vector<T> &X, const vector<T> &Y,
+    vector<T> &Ubar, vector<T> &Vbar, array2<hvec3<T>> &Qw) 
 {
     RefineKnotVectU(p, U, Pw, X, Ubar, Qw);
     RefineKnotVectV(q, v, Pw, Y, Vbar, Qw);

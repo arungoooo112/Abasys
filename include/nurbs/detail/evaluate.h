@@ -12,7 +12,8 @@
 #include <tuple>
 #include <vector>
 #include "util/array2.h"
-#include "./basis.h"
+#include "util/coord.h"
+#include "nurbs/basis.h"
 #include "util/util.h"
 
 
@@ -29,12 +30,12 @@ namespace funs
  * @param[in] u Parameter to evaluate the curve at.
  * @return point Resulting point on the curve at parameter u.
  */
-template <typename T, template<typename> class VecType>
-VecType<T> curvePoint(unsigned int degree, const std::vector<T> &knots,
-                            const std::vector<VecType<T>> &control_points, T u)
+template <typename T>
+hvec3<T> curvePoint(unsigned int degree, const std::vector<T> &knots,
+                            const std::vector<hvec3<T>> &control_points, T u)
 {
     // Initialize result to 0s
-    VecType<T> point(T(0));
+    hvec3<T> point(T(0));
 
     // Find span and corresponding non-zero basis functions
     int span = findSpan(degree, knots, u);
@@ -58,16 +59,16 @@ VecType<T> curvePoint(unsigned int degree, const std::vector<T> &knots,
  * @return curve_ders Derivatives of the curve at u.
  * E.g. curve_ders[n] is the nth derivative at u, where 0 <= n <= num_ders.
  */
-template <typename T, template<typename> class VecType>
-std::vector<VecType<T>> curveDerivatives(unsigned int degree, const std::vector<T> &knots,
-                                               const std::vector<VecType<T>> &control_points,
+template <typename T>
+std::vector<hvec3<T>> curveDerivatives(unsigned int degree, const std::vector<T> &knots,
+                                               const std::vector<hvec3<T>> &control_points,
                                                int num_ders, T u)
 {
 
-    typedef VecType<T> tvecn;
+    typedef hvec3<T> tvecn;
     using std::vector;
 
-    std::vector<VecType<T>> curve_ders;
+    std::vector<hvec3<T>> curve_ders;
     curve_ders.resize(num_ders + 1);
 
     // Assign higher order derivatives to zero
@@ -78,7 +79,7 @@ std::vector<VecType<T>> curveDerivatives(unsigned int degree, const std::vector<
 
     // Find the span and corresponding non-zero basis functions & derivatives
     int span = findSpan(degree, knots, u);
-    array2<T> ders = bsplineDerBasis<T>(degree, span, knots, u, num_ders);
+    array2<T> ders = tinynurbs::bsplineDerBasis<T>(degree, span, knots, u, num_ders);
 
     // Compute first num_ders derivatives
     int du = num_ders < degree ? num_ders : degree;
@@ -104,24 +105,24 @@ std::vector<VecType<T>> curveDerivatives(unsigned int degree, const std::vector<
  * @param[in] v Parameter to evaluate the surface at.
  * @return point Resulting point on the surface at (u, v).
  */
-template <typename T, template<typename> class VecType>
-VecType<T> surfacePoint(unsigned int degree_u, unsigned int degree_v,
+template <typename T>
+hvec3<T> surfacePoint(unsigned int degree_u, unsigned int degree_v,
                               const std::vector<T> &knots_u, const std::vector<T> &knots_v,
-                              const array2<VecType<T>> &control_points, T u, T v)
+                              const array2<hvec3<T>> &control_points, T u, T v)
 {
 
     // Initialize result to 0s
-    VecType<T> point(T(0.0));
+    hvec3<T> point(T(0.0));
 
     // Find span and non-zero basis functions
-    int span_u = findSpan(degree_u, knots_u, u);
-    int span_v = findSpan(degree_v, knots_v, v);
-    std::vector<T> Nu = bsplineBasis(degree_u, span_u, knots_u, u);
-    std::vector<T> Nv = bsplineBasis(degree_v, span_v, knots_v, v);
+    int span_u = tinynurbs::findSpan(degree_u, knots_u, u);
+    int span_v = tinynurbs::findSpan(degree_v, knots_v, v);
+    std::vector<T> Nu = tinynurbs::bsplineBasis(degree_u, span_u, knots_u, u);
+    std::vector<T> Nv = tinynurbs::bsplineBasis(degree_v, span_v, knots_v, v);
 
     for (int l = 0; l <= degree_v; l++)
     {
-        VecType<T> temp(0.0);
+        hvec3<T> temp(0.0);
         for (int k = 0; k <= degree_u; k++)
         {
             temp += static_cast<T>(Nu[k]) *
@@ -145,21 +146,21 @@ VecType<T> surfacePoint(unsigned int degree_u, unsigned int degree_v,
  * @param[in] v Parameter to evaluate the surface at.
  * @param[out] surf_ders Derivatives of the surface at (u, v).
  */
-template <typename T, template<typename> class VecType>
-array2<VecType<T>>
+template <typename T>
+array2<hvec3<T>>
 surfaceDerivatives(unsigned int degree_u, unsigned int degree_v, const std::vector<T> &knots_u,
-                   const std::vector<T> &knots_v, const array2<VecType<T>> &control_points,
+                   const std::vector<T> &knots_v, const array2<hvec3<T>> &control_points,
                    unsigned int num_ders, T u, T v)
 {
 
-    array2<VecType<T>> surf_ders(num_ders + 1, num_ders + 1, VecType<T>(0.0));
+    array2<hvec3<T>> surf_ders(num_ders + 1, num_ders + 1, hvec3<T>(0.0));
 
     // Set higher order derivatives to 0
     for (int k = degree_u + 1; k <= num_ders; k++)
     {
         for (int l = degree_v + 1; l <= num_ders; l++)
         {
-            surf_ders(k, l) = VecType<T>(0.0);
+            surf_ders(k, l) = hvec3<T>(0.0);
         }
     }
 
@@ -173,14 +174,14 @@ surfaceDerivatives(unsigned int degree_u, unsigned int degree_v, const std::vect
     unsigned int du = std::min(num_ders, degree_u);
     unsigned int dv = std::min(num_ders, degree_v);
 
-    std::vector<VecType<T>> temp;
+    std::vector<hvec3<T>> temp;
     temp.resize(degree_v + 1);
     // Compute derivatives
     for (int k = 0; k <= du; k++)
     {
         for (int s = 0; s <= degree_v; s++)
         {
-            temp[s] = VecType<T>(0.0);
+            temp[s] = hvec3<T>(0.0);
             for (int r = 0; r <= degree_u; r++)
             {
                 temp[s] += static_cast<T>(ders_u(k, r)) *

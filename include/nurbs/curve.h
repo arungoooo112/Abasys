@@ -13,9 +13,9 @@
 #include <stdexcept>
 #include <vector>
 
+#include "util/util.h"
 #include "util/coord.h"
 #include "refine.h"
-#include "util/util.h"
 
 namespace tinynurbs
 {
@@ -46,11 +46,11 @@ template <typename T> struct HCurve
 {
     unsigned int degree;
     std::vector<T> knots;
-    std::vector<glm::vec<4, T>> control_points;
+    std::vector<hvec3<T>> control_points;
 
     HCurve() = default;
     HCurve(unsigned int degree, const std::vector<T> &knots,
-          const std::vector<glm::vec<4, T>> &control_points)
+          const std::vector<hvec3<T>> &control_points)
         : degree(degree), knots(knots), control_points(control_points)
     {
     }
@@ -94,7 +94,7 @@ template <typename T> struct RationalCurve
     }
     void HRefine(const std::vector<T>& X) {
         vector<T> Ubar;
-        vector<glm::vec<4, T>> Qw;
+        vector<hvec3<T>> Qw;
 
         auto hpoints = cartesianToHomogenous(control_points, weights);
         tinynurbs::RefineKnotVectCurve(degree, knots, hpoints, X, Ubar, Qw);

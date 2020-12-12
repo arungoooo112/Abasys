@@ -32,10 +32,10 @@ namespace funs
  * @param[out] new_knots Updated knot vector
  * @param[out] new_cp Updated control points
  */
-template <typename T, template<typename> class VecType>
+template <typename T>
 void curveKnotInsert(unsigned int deg, const std::vector<T> &knots,
-                     const std::vector<VecType<T>> &cp, T u, unsigned int r,
-                     std::vector<T> &new_knots, std::vector<VecType<T>> &new_cp)
+                     const std::vector<hvec3<T>> &cp, T u, unsigned int r,
+                     std::vector<T> &new_knots, std::vector<hvec3<T>> &new_cp)
 {
     int k = findSpan(deg, knots, u);
     unsigned int s = knotMultiplicity(knots, k);
@@ -73,7 +73,7 @@ void curveKnotInsert(unsigned int deg, const std::vector<T> &knots,
         new_cp[i + r] = cp[i];
     }
     // Copy affected control points
-    std::vector<VecType<T>> tmp;
+    std::vector<hvec3<T>> tmp;
     tmp.resize(deg - s + 1);
     for (int i = 0; i < deg - s + 1; ++i)
     {
@@ -109,10 +109,10 @@ void curveKnotInsert(unsigned int deg, const std::vector<T> &knots,
  * @param[out] new_knots Updated knot vector
  * @param[out] new_cp Updated control points
  */
-template <typename T, template<typename> class VecType>
+template <typename T>
 void surfaceKnotInsert(unsigned int degree, const std::vector<T> &knots,
-                       const array2<VecType<T>> &cp, T knot, unsigned int r, bool along_u,
-                       std::vector<T> &new_knots, array2<VecType<T>> &new_cp)
+                       const array2<hvec3<T>> &cp, T knot, unsigned int r, bool along_u,
+                       std::vector<T> &new_knots, array2<hvec3<T>> &new_cp)
 {
     int span = findSpan(degree, knots, knot);
     unsigned int s = knotMultiplicity(knots, span);
@@ -151,7 +151,7 @@ void surfaceKnotInsert(unsigned int degree, const std::vector<T> &knots,
     }
 
     // Create a temporary container for affected control points per row/column
-    std::vector<VecType<T>> tmp(degree + 1);
+    std::vector<hvec3<T>> tmp(degree + 1);
 
     if (along_u)
     {
@@ -250,14 +250,14 @@ void surfaceKnotInsert(unsigned int degree, const std::vector<T> &knots,
  * @param[out] right_knots Knots of the right part of the curve
  * @param[out] right_control_points Control points of the right part of the curve
  */
-template <typename T, template<typename> class VecType>
+template <typename T>
 void curveSplit(unsigned int degree, const std::vector<T> &knots,
-                const std::vector<VecType<T>> &control_points, T u,
-                std::vector<T> &left_knots, std::vector<VecType<T>> &left_control_points,
-                std::vector<T> &right_knots, std::vector<VecType<T>> &right_control_points)
+                const std::vector<hvec3<T>> &control_points, T u,
+                std::vector<T> &left_knots, std::vector<hvec3<T>> &left_control_points,
+                std::vector<T> &right_knots, std::vector<hvec3<T>> &right_control_points)
 {
     std::vector<T> tmp_knots;
-    std::vector<VecType<T>> tmp_cp;
+    std::vector<hvec3<T>> tmp_cp;
 
     int span = findSpan(degree, knots, u);
     int r = degree - knotMultiplicity(knots, span);
@@ -308,14 +308,14 @@ void curveSplit(unsigned int degree, const std::vector<T> &knots,
  * @param[out] right_knots Knots of the right part of the curve
  * @param[out] right_control_points Control points of the right part of the curve
  */
-template <typename T, template<typename> class VecType>
+template <typename T>
 void surfaceSplit(unsigned int degree, const std::vector<T> &knots,
-                  const array2<VecType<T>> &control_points, T param, bool along_u,
-                  std::vector<T> &left_knots, array2<VecType<T>> &left_control_points,
-                  std::vector<T> &right_knots, array2<VecType<T>> &right_control_points)
+                  const array2<hvec3<T>> &control_points, T param, bool along_u,
+                  std::vector<T> &left_knots, array2<hvec3<T>> &left_control_points,
+                  std::vector<T> &right_knots, array2<hvec3<T>> &right_control_points)
 {
     std::vector<T> tmp_knots;
-    array2<VecType<T>> tmp_cp;
+    array2<hvec3<T>> tmp_cp;
 
     int span = findSpan(degree, knots, param);
     unsigned int r = degree - knotMultiplicity(knots, span);

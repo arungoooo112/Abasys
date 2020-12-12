@@ -423,7 +423,7 @@ RationalCurve<T> curveKnotInsert(const RationalCurve<T> &crv, T u, unsigned int 
     new_crv.degree = crv.degree;
 
     // Convert to homogenous coordinates
-    std::vector<glm::vec<4, T>> Cw;
+    std::vector<hvec3<T>> Cw;
     Cw.reserve(crv.control_points.size());
     for (int i = 0; i < crv.control_points.size(); ++i)
     {
@@ -431,7 +431,7 @@ RationalCurve<T> curveKnotInsert(const RationalCurve<T> &crv, T u, unsigned int 
     }
 
     // Perform knot insertion and get new knots and control points
-    std::vector<glm::vec<4, T>> new_Cw;
+    std::vector<hvec3<T>> new_Cw;
     std::vector<T> new_knots;
     internal::curveKnotInsert(crv.degree, crv.knots, Cw, u, repeat, new_crv.knots, new_Cw);
 
@@ -481,7 +481,7 @@ RationalSurface<T> surfaceKnotInsertU(const RationalSurface<T> &srf, T u, unsign
     new_srf.knots_v = srf.knots_v;
 
     // Original control points in homogenous coordinates
-    array2<glm::vec<4, T>> Cw(srf.control_points.rows(), srf.control_points.cols());
+    array2<hvec3<T>> Cw(srf.control_points.rows(), srf.control_points.cols());
     for (int i = 0; i < srf.control_points.rows(); ++i)
     {
         for (int j = 0; j < srf.control_points.cols(); ++j)
@@ -492,7 +492,7 @@ RationalSurface<T> surfaceKnotInsertU(const RationalSurface<T> &srf, T u, unsign
 
     // New knots and new homogenous control points after knot insertion
     std::vector<T> new_knots_u;
-    array2<glm::vec<4, T>> new_Cw;
+    array2<hvec3<T>> new_Cw;
     internal::surfaceKnotInsert(srf.degree_u, srf.knots_u, Cw, u, repeat, true, new_srf.knots_u,
                                 new_Cw);
 
@@ -545,7 +545,7 @@ RationalSurface<T> surfaceKnotInsertV(const RationalSurface<T> &srf, T v, unsign
     new_srf.degree_v = srf.degree_v;
     new_srf.knots_u = srf.knots_u;
     // Original control points in homogenous coordinates
-    array2<glm::vec<4, T>> Cw(srf.control_points.rows(), srf.control_points.cols());
+    array2<hvec3<T>> Cw(srf.control_points.rows(), srf.control_points.cols());
     for (int i = 0; i < srf.control_points.rows(); ++i)
     {
         for (int j = 0; j < srf.control_points.cols(); ++j)
@@ -556,7 +556,7 @@ RationalSurface<T> surfaceKnotInsertV(const RationalSurface<T> &srf, T v, unsign
 
     // New knots and new homogenous control points after knot insertion
     std::vector<T> new_knots_v;
-    array2<glm::vec<4, T>> new_Cw;
+    array2<hvec3<T>> new_Cw;
     internal::surfaceKnotInsert(srf.degree_v, srf.knots_v, Cw, v, repeat, false, new_srf.knots_v,
                                 new_Cw);
 
@@ -603,7 +603,7 @@ std::tuple<RationalCurve<T>, RationalCurve<T>> curveSplit(const RationalCurve<T>
     left.degree = crv.degree;
     right.degree = crv.degree;
 
-    std::vector<glm::vec<4, T>> Cw, left_Cw, right_Cw;
+    std::vector<hvec3<T>> Cw, left_Cw, right_Cw;
     Cw.reserve(crv.control_points.size());
     for (int i = 0; i < crv.control_points.size(); ++i)
     {
@@ -667,10 +667,10 @@ std::tuple<RationalSurface<T>, RationalSurface<T>> surfaceSplitU(const RationalS
     right.knots_v = srf.knots_v;
 
     // Compute homogenous coordinates of control points and weights
-    array2<glm::vec<4, T>> Cw = cartesianToHomogenous(srf.control_points, srf.weights);
+    array2<hvec3<T>> Cw = cartesianToHomogenous(srf.control_points, srf.weights);
 
     // Split surface with homogenous coordinates
-    array2<glm::vec<4, T>> left_Cw, right_Cw;
+    array2<hvec3<T>> left_Cw, right_Cw;
     internal::surfaceSplit(srf.degree_u, srf.knots_u, Cw, u, true, left.knots_u, left_Cw,
                            right.knots_u, right_Cw);
 
@@ -719,10 +719,10 @@ std::tuple<RationalSurface<T>, RationalSurface<T>> surfaceSplitV(const RationalS
     right.knots_u = srf.knots_u;
 
     // Compute homogenous coordinates of control points and weights
-    array2<glm::vec<4, T>> Cw = cartesianToHomogenous(srf.control_points, srf.weights);
+    array2<hvec3<T>> Cw = cartesianToHomogenous(srf.control_points, srf.weights);
 
     // Split surface with homogenous coordinates
-    array2<glm::vec<4, T>> left_Cw, right_Cw;
+    array2<hvec3<T>> left_Cw, right_Cw;
     internal::surfaceSplit(srf.degree_v, srf.knots_v, Cw, v, false, left.knots_v, left_Cw,
                            right.knots_v, right_Cw);
 

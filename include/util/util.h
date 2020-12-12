@@ -68,7 +68,7 @@ inline void homogenousToCartesian(const array2<hvec3<T>> &ptsws,
         for (int j = 0; j < ptsws.cols(); ++j)
         {
             const hvec3<T> &ptw_ij = ptsws(i, j);
-            T w_ij = ptw_ij[nd - 1];
+            T w_ij = ptw_ij[3];
             pts(i, j) = vec3<T>(ptw_ij / w_ij);
             ws(i, j) = w_ij;
         }

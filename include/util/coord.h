@@ -13,10 +13,10 @@
 #ifndef ABASYS_COORD_H
 #define ABASYS_COORD_H
 
-#include "./glm/glm.hpp"
+#include "../glm/glm.hpp"
 
-template<typename T> using vec3 = glm::tvec3<T>;
-template<typename T> using hvec3 = glm::tvec4<T>;
+template<typename T> using vec3 = glm::tvec3<T, glm::defaultp>;
+template<typename T> using hvec3 = glm::tvec4<T, glm::defaultp>;
 
 using vec3f = vec3<float>;
 using vec3d = vec3<double>;

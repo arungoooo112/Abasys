@@ -45,18 +45,16 @@ template <typename T> vec3<T> curvePoint(const Curve<T> &crv, T u)
 template <typename T> vec3<T> curvePoint(const RationalCurve<T> &crv, T u)
 {
 
-    typedef hvec3<T> tvecnp1;
-
     // Compute homogenous coordinates of control points
-    std::vector<tvecnp1> Cw;
+    std::vector<hvec3<T>> Cw;
     Cw.reserve(crv.control_points.size());
     for (int i = 0; i < crv.control_points.size(); i++)
     {
-        Cw.push_back(tvecnp1(cartesianToHomogenous(crv.control_points[i], crv.weights[i])));
+        Cw.push_back(hvec3<T>(cartesianToHomogenous(crv.control_points[i], crv.weights[i])));
     }
 
     // Compute point using homogenous coordinates
-    tvecnp1 pointw = funs::curvePoint(crv.degree, crv.knots, Cw, u);
+    hvec3<T> pointw = funs::curvePoint(crv.degree, crv.knots, Cw, u);
 
     // Convert back to cartesian coordinates
     return homogenousToCartesian(pointw);
@@ -91,14 +89,11 @@ template <typename T>
 std::vector<vec3<T>> curveDerivatives(const RationalCurve<T> &crv, int num_ders, T u)
 {
 
-    typedef vec3<T> tvecn;
-    typedef hvec3<T> tvecnp1;
-
-    std::vector<tvecn> curve_ders;
+    std::vector<vec3<T>> curve_ders;
     curve_ders.reserve(num_ders + 1);
 
     // Compute homogenous coordinates of control points
-    std::vector<tvecnp1> Cw;
+    std::vector<hvec3<T>> Cw;
     Cw.reserve(crv.control_points.size());
     for (int i = 0; i < crv.control_points.size(); i++)
     {
@@ -106,11 +101,11 @@ std::vector<vec3<T>> curveDerivatives(const RationalCurve<T> &crv, int num_ders,
     }
 
     // Derivatives of Cw
-    std::vector<tvecnp1> Cwders =
+    std::vector<hvec3<T>> Cwders =
         funs::curveDerivatives(crv.degree, crv.knots, Cw, num_ders, u);
 
     // Split Cwders into coordinates and weights
-    std::vector<tvecn> Aders;
+    std::vector<vec3<T>> Aders;
     std::vector<T> wders;
     for (const auto &val : Cwders)
     {
@@ -121,7 +116,7 @@ std::vector<vec3<T>> curveDerivatives(const RationalCurve<T> &crv, int num_ders,
     // Compute rational derivatives
     for (int k = 0; k <= num_ders; k++)
     {
-        tvecn v = Aders[k];
+        vec3<T> v = Aders[k];
         for (int i = 1; i <= k; i++)
         {
             v -= static_cast<T>(binomial(k, i)) * wders[i] * curve_ders[k - i];
@@ -188,22 +183,20 @@ template <typename T> vec3<T> surfacePoint(const Surface<T> &srf, T u, T v)
 template <typename T> vec3<T> surfacePoint(const RationalSurface<T> &srf, T u, T v)
 {
 
-    typedef hvec3<T> tvecnp1;
-
     // Compute homogenous coordinates of control points
-    array2<tvecnp1> Cw;
+    array2<hvec3<T>> Cw;
     Cw.resize(srf.control_points.rows(), srf.control_points.cols());
     for (int i = 0; i < srf.control_points.rows(); i++)
     {
         for (int j = 0; j < srf.control_points.cols(); j++)
         {
             Cw(i, j) =
-                tvecnp1(cartesianToHomogenous(srf.control_points(i, j), srf.weights(i, j)));
+                hvec3<T>(cartesianToHomogenous(srf.control_points(i, j), srf.weights(i, j)));
         }
     }
 
     // Compute point using homogenous coordinates
-    tvecnp1 pointw =
+    hvec3<T> pointw =
         funs::surfacePoint(srf.degree_u, srf.degree_v, srf.knots_u, srf.knots_v, Cw, u, v);
 
     // Convert back to cartesian coordinates
@@ -242,12 +235,8 @@ array2<vec3<T>> surfaceDerivatives(const RationalSurface<T> &srf, int num_ders, 
 {
 
     using namespace std;
-    using namespace glm;
 
-    typedef vec<3, T> tvecn;
-    typedef vec<4, T> tvecnp1;
-
-    array2<tvecnp1> homo_cp;
+    array2<hvec3<T>> homo_cp;
     homo_cp.resize(srf.control_points.rows(), srf.control_points.cols());
     for (int i = 0; i < srf.control_points.rows(); ++i)
     {
@@ -258,10 +247,10 @@ array2<vec3<T>> surfaceDerivatives(const RationalSurface<T> &srf, int num_ders, 
         }
     }
 
-    array2<tvecnp1> homo_ders = funs::surfaceDerivatives(
+    array2<hvec3<T>> homo_ders = funs::surfaceDerivatives(
         srf.degree_u, srf.degree_v, srf.knots_u, srf.knots_v, homo_cp, num_ders, u, v);
 
-    array2<tvecn> Aders;
+    array2<vec3<T>> Aders;
     Aders.resize(num_ders + 1, num_ders + 1);
     for (int i = 0; i < homo_ders.rows(); ++i)
     {
@@ -271,7 +260,7 @@ array2<vec3<T>> surfaceDerivatives(const RationalSurface<T> &srf, int num_ders, 
         }
     }
 
-    array2<tvecn> surf_ders(num_ders + 1, num_ders + 1);
+    array2<vec3<T>> surf_ders(num_ders + 1, num_ders + 1);
     for (int k = 0; k < num_ders + 1; ++k)
     {
         for (int l = 0; l < num_ders - k + 1; ++l)
@@ -287,7 +276,7 @@ array2<vec3<T>> surfaceDerivatives(const RationalSurface<T> &srf, int num_ders, 
             {
                 der -= (T)binomial(k, i) * homo_ders(i, 0).w * surf_ders(k - i, l);
 
-                tvecn tmp((T)0.0);
+                vec3<T> tmp((T)0.0);
                 for (int j = 1; j < l + 1; ++j)
                 {
                     tmp -= (T)binomial(l, j) * homo_ders(i, j).w * surf_ders(k - 1, l - j);
