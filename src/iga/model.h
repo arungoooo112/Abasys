@@ -4,10 +4,10 @@
 #include <cmath>
 #include <vector>
 #include <initializer_list>
-#include "./nurbs/curve.h"
-#include "./nurbs/surface.h"
-#include "./coord.h"
-#include "./array2.h"
+#include "nurbs/curve.h"
+#include "nurbs/surface.h"
+#include "util/coord.h"
+#include "util/array2.h"
 
 static const double PI = 3.14159265358979323846;
 

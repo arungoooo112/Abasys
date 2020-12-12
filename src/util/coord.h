@@ -13,7 +13,7 @@
 #ifndef ABASYS_COORD_H
 #define ABASYS_COORD_H
 
-#include "glm/glm.hpp"
+#include "./glm/glm.hpp"
 
 template<typename T> using vec3 = glm::tvec3<T>;
 template<typename T> using hvec3 = glm::tvec4<T>;

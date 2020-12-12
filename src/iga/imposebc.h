@@ -18,8 +18,6 @@ using Eigen::VectorX;
 
 namespace abab {
 
-    enum Boundary {U0, U1, V0, V1};
-    
 template<typename T, typename Function>
 VectorX<T> calcElementeEquivalentVals2D(int ei, int deg, 
     const vector<T>& U, const vector<vec3<T>> points, 

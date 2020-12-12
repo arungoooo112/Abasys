@@ -1,7 +1,7 @@
 #ifndef ABASYS_GUASS_H
 #define ABASYS_GUASS_H
 
-#include "./array2.h"
+#include "util/array2.h"
 namespace abab {
 //获取二维高斯积分点
 //@param[in) 高斯点个数
