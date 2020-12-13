@@ -1,14 +1,20 @@
 
+#include <iostream>
 #include "abasys.h"
 #include "ExactSolution/SPSheetCircHoleExactStress.h"
 // 一个分析样例
 using namespace abab;
+using namespace std;
 
 enum {X,Y};
-bool SheetCircHole()
+void SheetCircHole()
 {
-    cout << "构造曲线模型 Surf: " << endl;
+
     //---------CAD model----------------------------------------
+    //----------------------------------------------------------
+
+    cout << "-------------CAD建模，构造参数曲面----------------\n\n";
+
     double a = 1; //圆弧半径
     double L = 5; //四边形边长
 
@@ -22,23 +28,37 @@ bool SheetCircHole()
 
     auto Surf = createSurface({ curv1, curv2, curv3 });
 
+    cout << "初始参数曲面：\n";
     cout << Surf << endl << endl;
 
-    cout << "Is Surf valid?  " << isValidSurface(Surf) << endl;
+    if (!isValidSurface(Surf)) {
+        cerr << "生成参数曲面无效" << endl;
+        return ;
+    }
 
-    cout << "对Surf进行加密，（20，20）\n";
+    cout << "对参数曲面加密\n";
     Surf.HRefine(20, 20);
-    cout << "加密后的Surf：\n";
+    cout << "加密后的参数曲面：\n";
     cout << Surf << endl << endl;
+
+    //---------assembly K----------------------------------------
+    //-----------------------------------------------------------
+
+    cout << "------------------calculate K---------------------\n\n";
 
     double E = 1e5;
     double nu = 0.3;
 
-    cout << "calculate K:\n";
-    MatrixX<double> K = assemblyMatrix(Surf, E, nu, PlaneStress);
-    
+    auto K = assemblyMatrix(Surf, E, nu, PlaneStress); // K 为密集矩阵
+    auto K = assemblySparse(Surf, E, nu, PlaneStress); // K 为稀疏矩阵 
     cout << K;
-    Spsheetcircholeexactstress<double> S(a, 1.0);
+
+    //---------apply boundary conditions-------------------------
+    //-----------------------------------------------------------
+
+    cout << "------------apply boundary conditions----------------\n\n";
+
+    Spsheetcircholeexactstress<double> S(a, 1.0); // 精确解
 
     auto Sxx = [&](double x, double y) {return -S.xx(x, y) * (abs(x + L) <= 1e-6); };
     auto Sxy = [&](double x, double y) {return -S.xy(x, y) * (abs(x + L) <= 1e-6); };
@@ -63,14 +83,27 @@ bool SheetCircHole()
     assembly(fContainor, F);
     assembly(uContainor, U);
 
-    vector<int> knowns;
+
+    //---------solve---------------------------------------------
+    //-----------------------------------------------------------
+
+    cout << "---------------------solve---------------------\n\n";
+
+    vector<int> knowns; //已知的位移点
     for (const auto& ui : uContainor)
         knowns.insert(knowns.end(), ui.second.begin(), ui.second.end());
     //abab::solveByLarge(K, U, F, knowns);
     abab::solve(K, U, F, knowns);
 
-    cout << "\npost process:\n"<< endl << endl;
-    fstream out("post.csv");
+
+    //---------post process--------------------------------------
+    //-----------------------------------------------------------
+
+    cout << "-----------------post process-------------------\n\n";
+
+    fstream out;
+    out.open("post.csv"); //创建文件
+
     double u = 1.0, v = 0.0;
     int n = 180;
     for (int i = 0; i <= n; i++)
@@ -87,6 +120,6 @@ bool SheetCircHole()
         out << t << ", " << S.xx(x, y) << ", " << -stress[0] << endl;
         printf("%3.2f : %f  %f\n", t, S.xx(x, y), -stress[0]);
     }
+    out.close();
 
-    return true;
 }

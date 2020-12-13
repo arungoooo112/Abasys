@@ -69,16 +69,16 @@ template <typename T> Eigen::MatrixX<T> simplyfy(const vector<int> &vec, const E
         }
     }
 
-    template<typename T>
-    void assembly(const Eigen::MatrixX<T>& Ke, const std::vector<int>& vec, Eigen::SparseMatrix<T>& KK) {
-        assert(Ke.rows() == Ke.cols() && KK.rows() == KK.cols() && Ke.rows() == vec.size());
-        for (int i = 0; i < vec.size(); i++) {
-            for (int j = 0; j < i; j++) { 
-                KK.coeffRef(vec[j], vec[i]) = ( KK.coeffRef(vec[i], vec[j]) += Ke(i, j) );
-            }
-            KK.coeffRef(vec[i], vec[i]) += Ke(i, i);
-        }
-    }
+    // template<typename T>
+    // void assembly(const Eigen::MatrixX<T>& Ke, const std::vector<int>& vec, Eigen::SparseMatrix<T>& KK) {
+    //     assert(Ke.rows() == Ke.cols() && KK.rows() == KK.cols() && Ke.rows() == vec.size());
+    //     for (int i = 0; i < vec.size(); i++) {
+    //         for (int j = 0; j < i; j++) { 
+    //             KK.coeffRef(vec[j], vec[i]) = ( KK.coeffRef(vec[i], vec[j]) += Ke(i, j) );
+    //         }
+    //         KK.coeffRef(vec[i], vec[i]) += Ke(i, i);
+    //     }
+    // }
 
     //装配向量，用于装配单元力或位移向量到整体力或位移向量
     //@param[in] 单元向量

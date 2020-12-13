@@ -12,8 +12,28 @@ using namespace std;
 
 namespace abab
 {
+namespace internal {
 
 
+}; // namespace internal
+
+template<typename T>
+void solveByBigNum(const MatrixX<T>& KK, VectorX<T> &U, 
+            VectorX<T>& F, vector<int> & knowns) 
+{
+    //获取非重复的已知位移点
+    sort(knowns.begin(), knowns.end());
+    knowns.erase(unique(knowns.begin(), knowns.end()), knowns.end());
+
+    MatrixX<T> K = KK;
+    for (const int& a : knowns) {
+        K(a, a) *= 1e10;
+        F(a) *= 1e10 * U(a);
+    }
+
+    U = K.fullPivLu().solve(F);
+    F = K * U; 
+}
 
 template<typename T>
 void solve(const MatrixX<T>& KK, VectorX<T> &U, 

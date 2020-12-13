@@ -163,20 +163,29 @@ Eigen::SparseMatrix<T> assemblySparse(const tinynurbs::RationalSurface<T>& surf,
     int nep = (deg_u + 1) * (deg_v + 1);
 
     Eigen::SparseMatrix<T> KK(dofs, dofs);
+    vector<Eigen::Triplet<T>> coefficients;
     Eigen::MatrixX<T> Ke = Eigen::MatrixX<T>::Zero(nep * 2, nep * 2);//初始化单元刚度矩阵Ke
 
     //求解所有的单元刚度矩阵，并装配
+    int ki = 1; // 单元编号
     for (int ei = deg_u; ei < surf.control_points.rows(); ++ei) {
         for (int ej = deg_v; ej < surf.control_points.cols(); ++ej) {
             Ke = ElementStiffnessMatrix(surf, ei, ej, E, nu, id);//求（ei，ej）单元的刚度矩阵
-            using std::cout; using std::endl;
-            cout << ei << " " << ej << ": \n" << Ke << endl << endl;
+
+            std::cout << "第" << ki++ << "个单元的刚度矩阵:\n";
+            std::cout << Ke << std::endl << std::endl;
+
             array2<int> idx2s = GlobalIndex2(ei, ej, deg_u, deg_v);//单元（ei，ej）控制点的二维索引
             std::vector<int> idx1s = Index2To1ByV(idx2s, surf.control_points.cols());//控制点按行编号的一维索引
             std::vector<int> assIdxs = getDofsIndex(idx1s);//装配索引
-            assembly(Ke, assIdxs, KK);//装配单元（ei，ej）的刚度矩阵
+            for (int i = 0; i < assIdxs.size(); i++) {
+                for (int j = 0; j < assIdxs.size(); j++) {
+                    coefficients.emplace_back( assIdxs[i], assIdxs[j], ke(i, j) );
+                }
+            }
         }
     }
+    KK.setFromTriplets(coefficients.begin, coefficients.end();
     return KK;
 }
 } //namespace abab
