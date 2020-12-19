@@ -172,7 +172,7 @@ Eigen::SparseMatrix<T> assemblySparse(const tinynurbs::RationalSurface<T>& surf,
         for (int ej = deg_v; ej < surf.control_points.cols(); ++ej) {
             Ke = ElementStiffnessMatrix(surf, ei, ej, E, nu, id);//求（ei，ej）单元的刚度矩阵
 
-            std::cout << "第" << ki++ << "个单元的刚度矩阵:\n";
+            std::cout << "ke " << ki++ << std::endl;
             std::cout << Ke << std::endl << std::endl;
 
             array2<int> idx2s = GlobalIndex2(ei, ej, deg_u, deg_v);//单元（ei，ej）控制点的二维索引
@@ -180,13 +180,15 @@ Eigen::SparseMatrix<T> assemblySparse(const tinynurbs::RationalSurface<T>& surf,
             std::vector<int> assIdxs = getDofsIndex(idx1s);//装配索引
             for (int i = 0; i < assIdxs.size(); i++) {
                 for (int j = 0; j < assIdxs.size(); j++) {
-                    coefficients.emplace_back( assIdxs[i], assIdxs[j], ke(i, j) );
+                    coefficients.emplace_back( assIdxs[i], assIdxs[j], Ke(i, j) );
                 }
             }
         }
     }
-    KK.setFromTriplets(coefficients.begin, coefficients.end();
+    KK.setFromTriplets(coefficients.begin, coefficients.end());
     return KK;
 }
+
+
 } //namespace abab
 #endif //ABASYS_STIFFNESS_H

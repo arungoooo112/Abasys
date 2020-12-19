@@ -12,10 +12,6 @@ using namespace std;
 
 namespace abab
 {
-namespace internal {
-
-
-}; // namespace internal
 
 template<typename T>
 void solveByBigNum(const MatrixX<T>& KK, VectorX<T> &U, 
@@ -32,7 +28,27 @@ void solveByBigNum(const MatrixX<T>& KK, VectorX<T> &U,
     }
 
     U = K.fullPivLu().solve(F);
-    F = K * U; 
+    F = KK * U; 
+}
+
+template<typename T>
+void solveByBigNum(const SparseMatrix<T>& KK, VectorX<T>& U,
+    VectorX<T>& F, vector<int>& knowns)
+{
+    //获取非重复的已知位移点
+    sort(knowns.begin(), knowns.end());
+    knowns.erase(unique(knowns.begin(), knowns.end()), knowns.end());
+
+    SparseMatrix<T> K = KK;
+    for (const int& a : knowns) {
+        K.coeffRef(a, a) *= 1e10;
+        F(a) *= 1e10 * U(a);
+    }
+
+    Eigen::SparseLU<SparseMatrix<T>> solver;
+    solver.compute(K);
+    U = solver.solve(F);
+    F = KK * U;
 }
 
 template<typename T>
@@ -44,9 +60,9 @@ void solve(const MatrixX<T>& KK, VectorX<T> &U,
     
     int n = KK.rows();
     vector<int> other;
-    int a = 0;
-    for (int i = 0; i < n; ++i) {
-        if (i != knowns[a]) other.push_back(i);
+    for (int i = 0, a = 0; i < n && a < knowns.size(); ++i) {
+        if (i != knowns[a]) 
+            other.push_back(i);
         else a++;
     }
 
@@ -57,11 +73,10 @@ void solve(const MatrixX<T>& KK, VectorX<T> &U,
 
     Ktemp = simplyfy(other, KK);
     Ftemp = simplyfy(other, F);
-
-    //求解
-    //Eigen::SparseLU<MatrixX<T>> solver;
-    //solver.compute(Ktemp);
+    cout << Ktemp << endl;
+    cout << Ftemp << endl;
     Utemp = Ktemp.fullPivLu().solve(Ftemp);
+    cout << Utemp << endl;
     Ftemp = Ktemp * Utemp;
 
     assembly(Utemp, other, U);    //装配位移向量
@@ -77,13 +92,10 @@ void solve(const SparseMatrix<T> &KK, VectorX<T> &U, VectorX<T> &F, vector<int> 
 
     int n = KK.rows();
     vector<int> other;
-    int a = 0;
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0, a = 0; i < n && a < knowns.size(); ++i) {
         if (i != knowns[a])
             other.push_back(i);
-        else
-            a++;
+        else a++;
     }
 
     int nsimp = other.size();

@@ -45,11 +45,9 @@ template <typename T> Eigen::MatrixX<T> simplyfy(const vector<int> &vec, const E
     Eigen::MatrixX<T> res = Eigen::MatrixX<T>::Zero(vec.size(), vec.size());
     for (int i = 0; i < vec.size(); i++)
     {
-        for (int j = 0; j < i; j++)
-        {
-            res(i, j) = res(j, i) = KK(vec[i], vec[j]);
+        for (int j = 0; j < vec.size(); j++){
+            res(i, j) = KK(vec[i], vec[j]);  
         }
-        res(i, i) = KK(vec[i], vec[i]);
     }
     return res;
 }
