@@ -50,7 +50,7 @@ void SheetCircHole()
     double nu = 0.3;
 
     auto K = assemblyMatrix(Surf, E, nu, PlaneStress); // K 为密集矩阵
-    auto K = assemblySparse(Surf, E, nu, PlaneStress); // K 为稀疏矩阵 
+    //auto K = assemblySparse(Surf, E, nu, PlaneStress); // K 为稀疏矩阵 
     cout << K;
 
     //---------apply boundary conditions-------------------------
@@ -71,7 +71,7 @@ void SheetCircHole()
     fContainor.push_back(applyNewmannBC(Surf, U0, Syx, X));
     fContainor.push_back(applyNewmannBC(Surf, U0, Syy, Y));
 
-    auto h = [](double x, double y) {return 0.0; };
+    auto h = [](double , double ) {return 0.0; };
 
     vector<pair<VectorX<double>, vector<int>>> uContainor;
     uContainor.push_back(applyDrchltBC(Surf, V1, h, Y));
@@ -92,9 +92,9 @@ void SheetCircHole()
     vector<int> knowns; //已知的位移点
     for (const auto& ui : uContainor)
         knowns.insert(knowns.end(), ui.second.begin(), ui.second.end());
+
     //abab::solveByLarge(K, U, F, knowns);
     abab::solve(K, U, F, knowns);
-
 
     //---------post process--------------------------------------
     //-----------------------------------------------------------
